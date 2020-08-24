@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
-import MealItem from "./MealItem";
+import ListItem from "./ListItem";
 
 const List = ({ data, onMealItemPressed }) => {
   return (
@@ -11,7 +11,7 @@ const List = ({ data, onMealItemPressed }) => {
         data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <MealItem
+          <ListItem
             item={item}
             onPress={() => onMealItemPressed(item.id, item.title)}
           />

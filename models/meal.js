@@ -10,6 +10,7 @@ class Meal {
     ingredients,
     steps,
     isGlutenFree,
+    isVegan,
     isVegetarian,
     isLactoseFree
   ) {

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const MealItem = ({ item, onPress }) => {
+const ListItem = ({ item, onPress }) => {
   const { title, duration, complexity, affordability, imageUrl } = item;
 
   return (
@@ -71,4 +71,4 @@ const itemStyles = StyleSheet.create({
   },
 });
 
-export default MealItem;
+export default ListItem;

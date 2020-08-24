@@ -33,12 +33,36 @@ const GridItem = ({ item, onPress }) => {
   );
 };
 
-const CategoriesScreen = ({ navigation }) => {
+const FilterBar = ({ filtered }) => {
+  return (
+    <View>
+      <TouchableOpacity style={filterBarStyle.wrap}>
+        <Text>Filters</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const filterBarStyle = StyleSheet.create({
+  wrap: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+});
+
+const CategoriesScreen = ({ route, navigation }) => {
+  let hasFiltersApplied = false;
+  if (route.params.filters) {
+    hasFiltersApplied = true;
+  }
+
   function onCategoryPressed(id, title) {
     navigation.navigate("Category", { id: id, title: title });
   }
+
   return (
     <View style={styles.screen}>
+      <FilterBar filtered={hasFiltersApplied} />
       <FlatList
         style={styles.grid}
         data={CATEGORIES}
