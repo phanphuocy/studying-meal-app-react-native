@@ -52,7 +52,7 @@ const filterBarStyle = StyleSheet.create({
 
 const CategoriesScreen = ({ route, navigation }) => {
   let hasFiltersApplied = false;
-  if (route.params.filters) {
+  if (route.params && route.params.filters) {
     hasFiltersApplied = true;
   }
 
@@ -62,7 +62,6 @@ const CategoriesScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.screen}>
-      <FilterBar filtered={hasFiltersApplied} />
       <FlatList
         style={styles.grid}
         data={CATEGORIES}

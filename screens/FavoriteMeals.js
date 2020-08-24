@@ -1,12 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+import List from "../components/List";
+import { useSelector } from "react-redux";
 
-const FavoriteScreen = (props) => {
-  return (
-    <View style={styles.screen}>
-      <Text>Favorite Screen</Text>
-    </View>
-  );
+const FavoriteScreen = ({ navigation }) => {
+  const availableMeals = useSelector((state) => state.meals.favoriteMeals);
+
+  function onMealItemPressed(id, title) {
+    navigation.navigate("Meal", { id, title });
+  }
+
+  return <List data={availableMeals} onMealItemPressed={onMealItemPressed} />;
 };
 
 const styles = StyleSheet.create({

@@ -16,6 +16,7 @@ const List = ({ data, onMealItemPressed }) => {
             onPress={() => onMealItemPressed(item.id, item.title)}
           />
         )}
+        ListEmptyComponent={<Text>No meals</Text>}
       />
     </View>
   );

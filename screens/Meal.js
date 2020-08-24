@@ -1,13 +1,27 @@
-import React from "react";
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
-
-import { MEALS } from "../data/dummy-data";
+import React, { useCallback } from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Button,
+} from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleFavorite } from "../store/actions/meals";
+import Colors from "../constants/Colors";
 
 const MealScreen = ({ route }) => {
-  const { id } = route.params;
-  const selected = MEALS.find((meal) => meal.id == id);
+  const paramsId = route.params.id;
+
+  const meals = useSelector((state) => state.meals.meals);
+  const selected = meals.find((meal) => meal.id == paramsId);
+
+  const favoriteMeals = useSelector((state) => state.meals.favoriteMeals);
 
   const {
+    id,
+    title,
     imageUrl,
     duration,
     complexity,
@@ -15,6 +29,15 @@ const MealScreen = ({ route }) => {
     ingredients,
     steps,
   } = selected;
+
+  const dispatch = useDispatch();
+
+  const toggleFavoriteHandler = useCallback(
+    (id) => {
+      dispatch(toggleFavorite(id));
+    },
+    [dispatch, id]
+  );
 
   return (
     <ScrollView>
@@ -25,6 +48,17 @@ const MealScreen = ({ route }) => {
         <Text style={styles.detailText}>{complexity.toUpperCase()}</Text>
         <View style={styles.vrule}></View>
         <Text style={styles.detailText}>{affordability.toUpperCase()}</Text>
+      </View>
+      <View style={styles.actionWrap}>
+        <Button
+          title={
+            favoriteMeals.find((meal) => meal.id == selected.id)
+              ? "Remove from Favorite"
+              : "Add to Favorite"
+          }
+          color={Colors.primaryColor}
+          onPress={() => toggleFavoriteHandler(id)}
+        />
       </View>
       <Title>Ingredients</Title>
       {ingredients.map((line) => (
@@ -85,6 +119,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 8,
     marginBottom: 4,
+  },
+  actionWrap: {
+    width: "100%",
+    paddingHorizontal: 24,
+    paddingVertical: 12,
   },
 });
 
